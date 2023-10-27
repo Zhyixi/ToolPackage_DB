@@ -2,22 +2,24 @@
 """
 Created on Wed Apr 19 16:13:14 2023
 
-@author: ur08366
+@author: Sean chang
 """
 import cx_Oracle, psycopg2, logging, re
 from sqlalchemy import create_engine
+import numpy as np
 import mysql.connector
 import pandas as pd
-import pyodbc 
-import numpy as np
-# 设置 Oracle 客户端路径
-try:
-    cx_Oracle.init_oracle_client(lib_dir=r'D:\UR08366\instantclient_11_2')
-except:
-    pass
+import pyodbc
+import cx_Oracle
+
 
 class DbConnector:
-    def __init__(self, db_info):
+    def __init__(self, db_info, client_path=None):
+        try:
+            # 设置 Oracle 客户端路径
+            cx_Oracle.init_oracle_client(lib_dir=client_path)
+        except:
+            pass
         self.db_type = db_info["db_type"]
         self.database_info = db_info["database_info"]
         self.user_info = db_info["user_name"]
